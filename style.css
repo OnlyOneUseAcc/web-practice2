@@ -1,0 +1,222 @@
+body {
+    width: 90vw;
+    height: 100vh;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "mainHeader headerButton mainHeader";
+}
+
+#mainHeader {
+    font-size: 64px;
+}
+
+#headerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#headerButton button {
+    font-family: 'Roboto', sans-serif;
+
+    height: 60px;
+    width: 320px;
+
+    border-radius: 10px;
+}
+
+.city, .cities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 20px;
+}
+
+
+h2 {
+    font-size: 56px;
+    margin-top: 30px;
+}
+
+#currentCity h2 {
+    margin: 0;
+}
+
+#currentCity img {
+    width: 250px;
+    float: left;
+}
+
+
+
+#currentCity p {
+    font-size: 84px;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    #currentCity img {
+        width: 200px;
+    }
+
+    #currentCity p {
+        font-size: 64px;
+    }
+}
+.cityList {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    background: lightgrey;
+    margin-bottom: 5px;
+
+    border-radius: 10px;
+
+    padding: 0 5px 0 5px;
+}
+
+#newCity {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+input {
+    border: 1px solid darkgray;
+
+    height: 60px;
+    width: 200px;
+
+    border-radius: 10px;
+
+    padding-left: 20px;
+
+    margin-right: 20px;
+}
+
+button {
+    border: none;
+    background: lightgrey;
+    cursor: pointer;
+}
+
+#newCity button, .city2 button, .city1 button {
+    height: 40px;
+    width: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    background: black;
+    color: white;
+    border-radius: 50%;
+}
+
+.city1 {
+    margin-right: 20px;
+}
+
+.city2 {
+    margin-left: 20px;
+}
+
+.headerCity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+h3 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.headerCity img {
+    height: 60px;
+    width: 60px;
+}
+
+.headerCity p {
+    font-weight: bold;
+    font-size: 48px;
+    margin: 0;
+}
+
+.city2 button, .city1 button {
+    float: right;
+    margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+    header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #mainHeader {
+        font-size: 32px;
+    }
+
+    #headerButton button {
+        width: 60px;
+        background-image: url("img/reload.svg");
+        font-size: 0;
+    }
+
+    .city, .cities {
+        grid-template-columns: 1fr;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    #currentCity img {
+        width: 150px;
+    }
+
+    #currentCity p {
+        font-size: 48px;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .headerCity button {
+        margin-left: 0;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .city1 {
+        margin-right: 0;
+    }
+
+    .city2 {
+        margin-left: 0;
+    }
+
+    input {
+        width: 200px;
+        height: 30px;
+    }
+
+    .headerCity p {
+        font-size: 32px;
+    }
+
+}
