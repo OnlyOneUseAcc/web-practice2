@@ -1,32 +1,43 @@
 body {
-    width: 90vw;
+    width: 55vw;
     height: 100vh;
     margin: auto;
     font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "mainHeader headerButton mainHeader";
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
 }
 
 #mainHeader {
-    font-size: 64px;
+    font-size: 42px;
 }
 
 #headerButton {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+}
+
+#headerButton button {
+    font-family: 'Roboto', sans-serif;
+    height: 50px;
+    padding: 0 10px 0 10px;
+    border-radius: 10px;
+}
+
+button:focus {
+    outline: none;
 }
 
 #headerButton button {
     font-family: 'Roboto', sans-serif;
 
     height: 60px;
-    width: 320px;
+
 
     border-radius: 10px;
 }
@@ -40,46 +51,42 @@ header {
 
 
 h2 {
-    font-size: 56px;
+    font-size: 32px;
     margin-top: 30px;
+}
+
+#currentCityImgTemp {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
 }
 
 #currentCity h2 {
     margin: 0;
 }
 
-#currentCity img {
-    width: 250px;
-    float: left;
+#currentCityImgTemp img {
+    width: 165px;
+    margin-right: 50px;
 }
 
-
-
-#currentCity p {
-    font-size: 84px;
+#currentCityImgTemp p {
+    font-size: 60px;
     font-weight: bold;
     text-align: center;
+    margin: 0;
 }
 
-@media (max-width: 900px) {
-    #currentCity img {
-        width: 200px;
-    }
-
-    #currentCity p {
-        font-size: 64px;
-    }
-}
 .cityList {
     list-style-type: none;
     padding-left: 0;
 }
 
-ul {
+.list {
     padding: 0;
 }
 
-li {
+.list li {
     display: flex;
     justify-content: space-between;
     background: lightgrey;
@@ -116,8 +123,8 @@ button {
 }
 
 #newCity button, .city2 button, .city1 button {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     font-size: 18px;
     font-weight: bold;
     background: black;
@@ -129,7 +136,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 70%;
 }
 
 h3 {
@@ -144,72 +150,110 @@ h3 {
 
 .headerCity p {
     font-weight: bold;
-    font-size: 48px;
+    font-size: 36px;
     margin: 0;
 }
 
-.city2 button, .city1 button {
-    float: right;
-    margin-top: 12px;
+@media (max-width: 1200px) {
+    body {
+        width: 80vw;
+    }
+}
+
+@media (max-width: 1000px) {
+    #currentCityImgTemp img {
+        width: 150px;
+        margin-right: 30px;
+    }
+
+    #currentCityImgTemp p {
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 768px) {
-    header {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    #mainHeader {
-        font-size: 32px;
-    }
-
-    #headerButton button {
-        width: 60px;
-        background-image: url("image/reload.svg");
-        font-size: 0;
-    }
-
     .city, .cities {
         grid-template-columns: 1fr;
     }
 
+    #mainHeader {
+        font-size: 30px;
+    }
+
+    #headerButton button {
+        width: 50px;
+        height: 50px;
+        background-image: url("image/reload.svg");
+        font-size: 0;
+    }
+
+    #currentCityImgTemp {
+        margin-top: 20px;
+    }
+
+    #currentCityImgTemp img {
+        width: 180px;
+    }
+
+    #currentCityImgTemp p {
+        font-size: 60px;
+    }
+
     h2 {
-        font-size: 24px;
-        margin-top: 10px;
+        font-size: 28px;
     }
 
-    #currentCity img {
-        width: 150px;
-    }
-
-    #currentCity p {
-        font-size: 48px;
-        padding-left: 0;
-        margin-left: 0;
-    }
-
-    .headerCity button {
-        margin-left: 0;
-    }
-
-    h3 {
-        font-size: 24px;
-    }
-
-    .city1 {
-        margin-right: 0;
-    }
-
-    .city2 {
-        margin-left: 0;
+    #newCity {
+        justify-content: space-between;
     }
 
     input {
-        width: 200px;
-        height: 30px;
+        width: calc(80vw - 110px);
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        font-size: 14px;
+    }
+
+    #currentCityImgTemp img {
+        width: 120px;
+    }
+
+    #currentCityImgTemp p {
+        font-size: 36px;
+    }
+
+    #mainHeader {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 18px;
     }
 
     .headerCity p {
-        font-size: 32px;
+        font-size: 20px;
     }
 
+    .headerCity img {
+        width: 30px;
+    }
+
+    input {
+        width: calc(80vw - 70px);
+        padding: 1px;
+        margin-right: 0;
+    }
+
+    .headerCity button, #newCity button {
+        width: 40px;
+        height: 40px;
+    }
 }
+
+
+
+
