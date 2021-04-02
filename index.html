@@ -5,44 +5,51 @@
     <title>ПОГОДА ЗДЕСЬ</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="js/script.js"></script>
+    <script src="js/geolocation.js"></script>
+    <script src="js/fetch.js"></script>
+    <script src="js/printCities.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/addCity.js"></script>
+    <script src="js/deleteCity.js"></script>
 </head>
-<body>
+<body onload="getPosition(); citiesFromLocalStorage(); pressEnter()">
 <header>
     <h1 id="mainHeader">Погода здесь</h1>
     <div id="headerButton">
-        <button>Обновить геолокацию</button>
+        <button onclick="updateGeolocation()">Обновить геолокацию</button>
     </div>
 </header>
 <main>
-    <section class="city">
-        <div id="currentCity">
-            <h2>Санкт-Петербург</h2>
+    <section class="city" id="city">
+        <div class="currentCity" id="currentCity">
+            <h2>Загрузка...</h2>
             <div id="currentCityImgTemp">
-                <img src="image/sun.svg" alt="sun">
-                <p>8&#176;C</p>
+                <img src="image/reload.svg" alt="reload">
+                <p></p>
             </div>
         </div>
-        <section class="cityList">
+        <section class="cityList" id="cityList">
             <ul class="list">
                 <li>
                     <p>Ветер</p>
-                    <p>Moderate breeze</p>
+                    <p class="wind"></p>
                 </li>
                 <li>
-                    <p>Облачность</p>
-                    <p>Broken clouds</p>
+                    <p>Ощущается как</p>
+                    <p class="feels-like"></p>
                 </li>
                 <li>
                     <p>Давление</p>
-                    <p>1013 pha</p>
+                    <p class="pressure"></p>
                 </li>
                 <li>
                     <p>Влажность</p>
-                    <p>52%</p>
+                    <p class="humidity"></p>
                 </li>
                 <li>
                     <p>Координаты</p>
-                    <p>[59.88, 30.42]</p>
+                    <p class="coords"></p>
                 </li>
             </ul>
         </section>
@@ -52,203 +59,52 @@
         <h2>Избранное</h2>
         <div id="newCity">
             <label>
-                <input placeholder="Добавить новый город">
+                <input class="search" placeholder="Добавить новый город">
             </label>
-            <button>+</button>
+            <button onclick="addCity()">+</button>
         </div>
-        <section class="city1">
-            <div class="headerCity">
-                <h3>Москва</h3>
-                <p>5&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="city2">
-            <div class="headerCity">
-                <h3>Хельсинки</h3>
-                <p>8&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="city1">
-            <div class="headerCity">
-                <h3>Москва</h3>
-                <p>5&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="city2">
-            <div class="headerCity">
-                <h3>Хельсинки</h3>
-                <p>8&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="city1">
-            <div class="headerCity">
-                <h3>Москва</h3>
-                <p>5&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section class="city2">
-            <div class="headerCity">
-                <h3>Хельсинки</h3>
-                <p>8&#176;C</p>
-                <img src="image/sun.svg" alt="sun">
-                <button>×</button>
-            </div>
-            <div class="cityList">
-                <ul class="list">
-                    <li>
-                        <p>Ветер</p>
-                        <p>Moderate breeze</p>
-                    </li>
-                    <li>
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li>
-                        <p>Давление</p>
-                        <p>1013 pha</p>
-                    </li>
-                    <li>
-                        <p>Влажность</p>
-                        <p>52%</p>
-                    </li>
-                    <li>
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
     </section>
 </main>
+
+<template class="templateCity" id="templateCity">
+    <section class="sectionCity">
+        <div class="headerCity">
+            <h3>Загрузка...</h3>
+            <p></p>
+            <img src="image/reload.svg" alt="reload">
+            <button onclick="deleteCity(this)">×</button>
+        </div>
+        <div class="otherList">
+            <ul class="list">
+                <li>
+                    <p>Ветер</p>
+                    <p class="wind"></p>
+                </li>
+                <li>
+                    <p>Облачность</p>
+                    <p class="feels-like"></p>
+                </li>
+                <li>
+                    <p>Давление</p>
+                    <p class="pressure"></p>
+                </li>
+                <li>
+                    <p>Влажность</p>
+                    <p class="humidity"></p>
+                </li>
+                <li>
+                    <p>Координаты</p>
+                    <p class="coords"></p>
+                </li>
+            </ul>
+        </div>
+    </section>
+</template>
+<template class="templateLoading">
+    <section class="loadingOtherCity" id="loadingOtherCity">
+        <p>Подождите, данные загружаются</p>
+        <button onclick="updateGeolocation()"></button>
+    </section>
+</template>
 </body>
 </html>
