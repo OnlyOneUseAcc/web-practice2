@@ -21,7 +21,7 @@ function printCity(city,data) {
 function printLoading() {
     let city = document.querySelector('.city');
     city.querySelector('.name').innerHTML = 'Загрузка...';
-    city.querySelector('img').src = 'img/reload.svg';
+    city.querySelector('img').src = 'image/reload.svg';
     city.querySelector('.temp').innerHTML = '';
     city.querySelector('.feels-like').innerHTML = '';
     city.querySelector('.wind').innerHTML = '';
