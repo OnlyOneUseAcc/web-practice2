@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>ПОГОДА ЗДЕСЬ</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="style.css">
     <script src="js/script.js"></script>
     <script src="js/geolocation.js"></script>
@@ -24,10 +23,10 @@
 <main>
     <section class="city" id="city">
         <div class="currentCity" id="currentCity">
-            <h2>Загрузка...</h2>
+            <h2 class="name">Загрузка...</h2>
             <div id="currentCityImgTemp">
                 <img src="image/reload.svg" alt="reload">
-                <p></p>
+                <p class="temp"></p>
             </div>
         </div>
         <section class="cityList" id="cityList">
@@ -70,8 +69,8 @@
 <template class="templateCity" id="templateCity">
     <section class="sectionCity">
         <div class="headerCity">
-            <h3>Загрузка...</h3>
-            <p></p>
+            <h3 class="name">Загрузка...</h3>
+            <p class="temp"></p>
             <img src="image/reload.svg" alt="reload">
             <button onclick="deleteCity(this)">×</button>
         </div>
@@ -82,7 +81,7 @@
                     <p class="wind"></p>
                 </li>
                 <li>
-                    <p>Ощущается как</p>
+                    <p>Облачность</p>
                     <p class="feels-like"></p>
                 </li>
                 <li>

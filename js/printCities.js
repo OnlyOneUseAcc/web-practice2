@@ -1,29 +1,31 @@
 function printMainCity(data) {
     let city = document.querySelector('.city');
-
-    city.querySelector('h2').innerHTML = data.name;
-    city.querySelector('img').src = "http://openweathermap.org/img/wn/"
-        + data.weather[0].icon + "@4x.png";
-    city.querySelector('.currentCity p').innerHTML = Math.floor(data.main.temp) + "°C";
-    city.querySelector(".cityList .feels-like").innerHTML = Math.floor(data.main.feels_like) + "°C";
-    city.querySelector(".cityList .wind").innerHTML = Math.floor(data.wind.speed) + " м/с";
-    city.querySelector(".cityList .pressure").innerHTML = data.main.pressure + " hPa";
-    city.querySelector(".cityList .humidity").innerHTML = data.main.humidity + "%";
-    city.querySelector(".cityList .coords").innerHTML = "[" + data.coord.lon.toFixed(4)
-        + ", " + data.coord.lat.toFixed(4) + "]";
+    printCity(city, data);
 }
 
-function printCity(data, id) {
+function printOtherCity(data, id) {
     let city = document.getElementById(id);
+    printCity(city, data);
+}
+function printCity(city,data) {
+    city.querySelector('.name').innerHTML = data.name;
+    city.querySelector('img').src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
+    city.querySelector('.temp').innerHTML = `${Math.round(data.main.temp)}°C`;
+    city.querySelector(".feels-like").innerHTML = `${Math.round(data.main.feels_like)}°C`;
+    city.querySelector(".wind").innerHTML = `${Math.round(data.wind.speed)} м/с`;
+    city.querySelector(".pressure").innerHTML = `${data.main.pressure} hPa`;
+    city.querySelector(".humidity").innerHTML = `${data.main.humidity}%`
+    city.querySelector(".coords").innerHTML = `[${data.coord.lon.toFixed(2)}, ${data.coord.lat.toFixed(2)}]`;
+}
 
-    city.querySelector('.headerCity h3').innerHTML = data.name;
-    city.querySelector('.headerCity img').src = "http://openweathermap.org/img/wn/"
-        + data.weather[0].icon + "@4x.png";
-    city.querySelector('.headerCity p').innerHTML = Math.floor(data.main.temp) + "°C";
-    city.querySelector(".otherList .feels-like").innerHTML = Math.floor(data.main.feels_like) + "°C";
-    city.querySelector(".otherList .wind").innerHTML = Math.floor(data.wind.speed) + " м/с";
-    city.querySelector(".otherList .pressure").innerHTML = data.main.pressure + " hPa";
-    city.querySelector(".otherList .humidity").innerHTML = data.main.humidity + "%";
-    city.querySelector(".otherList .coords").innerHTML = "[" + data.coord.lon.toFixed(4)
-        + ", " + data.coord.lat.toFixed(4) + "]";
+function printLoading() {
+    let city = document.querySelector('.city');
+    city.querySelector('.name').innerHTML = 'Загрузка...';
+    city.querySelector('img').src = 'img/reload.svg';
+    city.querySelector('.temp').innerHTML = '';
+    city.querySelector('.feels-like').innerHTML = '';
+    city.querySelector('.wind').innerHTML = '';
+    city.querySelector('.humidity').innerHTML = '';
+    city.querySelector('.pressure').innerHTML = '';
+    city.querySelector('.coords').innerHTML = '';
 }

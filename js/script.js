@@ -1,26 +1,29 @@
+let citiesFromStorage = [];
+
 function getPosition() {
     navigator.geolocation.getCurrentPosition(position => setPosition(position),
         positionError => setDefault());
 }
 
 async function citiesFromLocalStorage() {
-    let keys = Object.keys(window.localStorage);
+    if (localStorage.length !== 0) {
+        citiesFromStorage = localStorage.getItem('favorites').split(',');
+        Promise.all(citiesFromStorage).then(citiesFromStorage => citiesFromStorage.forEach(function (value, index) {
+            loading(index);
+        }));
 
-    for (let key of keys) {
-        let city = window.localStorage.getItem(key);
-
-        loading();
-
-        document.getElementById('-1').id = key;
-
-        await fetchWeather(city, key);
+        citiesFromStorage.forEach(function (value, index) {
+            fetchWeatherByID(value).then(data => printOtherCity(data, index));
+        })
     }
 }
+
+
 
 function pressEnter() {
     document.querySelector('.search').addEventListener('keypress',
         function (e) {
-            if (e.key === 'Enter' && document.querySelector('.search').value !== "") {
+            if (e.key === 'Enter') {
                 addCity();
             }
         });
@@ -28,21 +31,11 @@ function pressEnter() {
 
 async function setDefault() {
     let name = "Москва";
-    let id = -111;
-    await fetchWeather(name, id);
+
+    printMainCity(await fetchWeather(name));
 }
 
 function updateGeolocation() {
-    document.querySelector('.currentCity h2').innerHTML = 'Загрузка...';
-    document.querySelector('.currentCity img').src = 'image/reload.svg';
-    document.querySelector('.currentCity p').innerHTML = "";
-
-    document.querySelector(".cityList .feels-like").innerHTML = "";
-    document.querySelector(".cityList .wind").innerHTML = "";
-    document.querySelector(".cityList .pressure").innerHTML = "";
-    document.querySelector(".cityList .humidity").innerHTML = "";
-    document.querySelector(".cityList .coords").innerHTML = "";
-
-    navigator.geolocation.getCurrentPosition(position => setPosition(position),
-        positionError => setDefault());
+    printLoading();
+    getPosition();
 }

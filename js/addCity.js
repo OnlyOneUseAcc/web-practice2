@@ -1,39 +1,27 @@
 async function addCity() {
-    if (document.querySelector('.search').value !== "") {
-        let city = document.querySelector('.search').value;
-        let api = url + "q=" + city + "&units=metric&lang=ru&appid=" + key;
-
-        let response = await fetch(api);
-
-        if (response.status.toString() === '200') {
-            let data = await response.json();
-
-            let notErrors = true;
-            for (let i = 0; i < window.localStorage.length; i++) {
-                if (data.name === window.localStorage.getItem(i)) {
-                    alert("Город существует");
-                    notErrors = false;
-                }
-            }
-
-            if (notErrors) {
-                loading();
-                let keys = Object.keys(window.localStorage);
-                let id;
-                if (window.localStorage.length === 0) {
-                    id = 0;
-                    window.localStorage.setItem(id, city);
-                } else {
-                    id = Math.max.apply(null, keys) + 1;
-                    window.localStorage.setItem(id, city);
-                }
-                document.getElementById('-1').id = id;
-
-                printCity(data, id);
-            }
+    let input = document.querySelector('.search').value;
+    if (input !== '') {
+        let data = await fetchWeather(input);
+        if (data.cod === '404') {
+            alert('Город не найден');
         } else {
-            alert('Города не существует');
+            let id = data.id.toString();
+            if (citiesFromStorage.indexOf(id) === -1) {
+                let sectionID = citiesFromStorage.length.toString();
+                loading(sectionID);
+                citiesFromStorage.push(id);
+                printOtherCity(data, sectionID);
+                updateStorage();
+            } else {
+                alert('Город уже существует!');
+            }
         }
-        document.querySelector('.search').value = "";
+        document.querySelector('input').value = '';
     }
+}
+
+function updateStorage() {
+    let key = 'favorites';
+    let value = citiesFromStorage.join();
+    localStorage.setItem(key, value);
 }
