@@ -14,7 +14,7 @@
     <script src="js/addCity.js"></script>
     <script src="js/deleteCity.js"></script>
 </head>
-<body onload="getPosition(); citiesFromLocalStorage(); pressEnter()">
+<body onload="getPosition(); citiesFromLocalStorage()">
 <header>
     <h1 id="mainHeader">Погода здесь</h1>
     <div id="headerButton">
@@ -59,10 +59,12 @@
     <section class="cities">
         <h2>Избранное</h2>
         <div id="newCity">
-            <label>
-                <input class="search" placeholder="Добавить новый город">
-            </label>
-            <button onclick="addCity()">+</button>
+            <form onsubmit="return false">
+                <label>
+                    <input type="text" class="search" placeholder="Добавить новый город">
+                </label>
+                <button onclick="addCity()">+</button>
+            </form>
         </div>
     </section>
 </main>

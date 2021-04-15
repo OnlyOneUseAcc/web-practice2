@@ -10,7 +10,7 @@ async function addCity() {
                 let sectionID = citiesFromStorage.length.toString();
                 loading(sectionID);
                 citiesFromStorage.push(id);
-                printOtherCity(data, sectionID);
+                await sleep(1000).then(() => { printOtherCity(data, sectionID) });
                 updateStorage();
             } else {
                 alert('Город уже существует!');
@@ -24,4 +24,8 @@ function updateStorage() {
     let key = 'favorites';
     let value = citiesFromStorage.join();
     localStorage.setItem(key, value);
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

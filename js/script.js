@@ -19,16 +19,6 @@ async function citiesFromLocalStorage() {
 }
 
 
-
-function pressEnter() {
-    document.querySelector('.search').addEventListener('keypress',
-        function (e) {
-            if (e.key === 'Enter') {
-                addCity();
-            }
-        });
-}
-
 async function setDefault() {
     let name = "Москва";
 
