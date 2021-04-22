@@ -6,7 +6,6 @@ async function addCity() {
 
         try {
             let data = await fetchAdd(input);
-            console.log(input);
             if (data === false) {
                 console.log("Город уже существует")
                 city.remove();

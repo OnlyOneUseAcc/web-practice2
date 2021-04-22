@@ -22,7 +22,6 @@ async function fetchCityByName(name) {
 }
 
 async function fetchAdd(name) {
-    console.log(name);
     let data = await fetch(`${FavoritesServer}?q=${name}`, {method: "POST"});
     if (data.status === 201) {
         return await data.json();
