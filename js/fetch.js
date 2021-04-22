@@ -1,4 +1,4 @@
-const prefixServer = 'http://localhost:3000';
+const prefixServer = 'https://itmo-web-practice-server.herokuapp.com';
 const CoordsServer = `${prefixServer}/weather/coordinates`;
 const NameServer = `${prefixServer}/weather/city`;
 const FavoritesServer = `${prefixServer}/favorites`;

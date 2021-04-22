@@ -10,9 +10,11 @@ app.use(cors());
 app.options('*', cors());
 
 mongoose.set('useCreateIndex', true);
+const user = process.env.MONGO_USER;
+const password = process.env.MONGO_PASSWORD;
 
 const mongooseURL =
-    `mongodb+srv://kozlov:1234567890@mycluster.4fb6x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+    `mongodb+srv://${user}:${password}@mycluster.4fb6x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,7 +28,7 @@ async function start() {
     app.use('/favorites', cities.router);
 
     app.listen(PORT, () => {
-        console.log('Server has been started...');
+        console.log('Сервер работает...');
     });
 }
 
