@@ -1,29 +1,51 @@
-const key = "6810f239be5b9d8d966b74053e3cec20";
-let url = `http://api.openweathermap.org/data/2.5/weather?units=metric&appid=${key}&`;
+const prefixServer = 'http://localhost:3000';
+const CoordsServer = `${prefixServer}/weather/coordinates`;
+const NameServer = `${prefixServer}/weather/city`;
+const FavoritesServer = `${prefixServer}/favorites`;
 
-async function fetchByPosition(lat, lon) {
+async function fetchCityByCoords(lat, lon) {
     try {
-        let response = await fetch(`${url}lat=${lat}&lon=${lon}`);
-        return response.json();
+        let data = await fetch(`${CoordsServer}?lat=${lat}&lon=${lon}`);
+        return data.json();
     } catch (e) {
         console.log(e);
     }
 }
 
-async function fetchWeather(name) {
+async function fetchCityByName(name) {
     try {
-        let response = await fetch(`${url}q=${name}`);
-        return response.json();
+        let data = await fetch(`${NameServer}?q=${name}`);
+        return data.json();
     } catch (e) {
         console.log(e);
     }
 }
 
-async function fetchWeatherByID(id) {
-    try {
-        let response = await fetch(`${url}id=${id}`);
-        return response.json();
-    } catch (e) {
-        console.log(e);
+async function fetchAdd(name) {
+    console.log(name);
+    let data = await fetch(`${FavoritesServer}?q=${name}`, {method: "POST"});
+    if (data.status === 201) {
+        return await data.json();
     }
+
+    if (data.status === 409) {
+        return false;
+    }
+    throw new Error(`Status ${data.status}`);
+}
+
+async function fetchDelete(name) {
+    let data = await fetch (`${FavoritesServer}?q=${name}`, {method: "DELETE"});
+
+    if (data.status !== 204) {
+        throw new Error(`Status ${data.status}`);
+    }
+}
+
+async function fetchGetCities() {
+    let response = await fetch(FavoritesServer);
+    if (response.status === 200) {
+        return response.json();
+    }
+    throw new Error(`Status ${data.status}`);
 }

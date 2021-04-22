@@ -1,13 +1,12 @@
 function printMainCity(data) {
     let city = document.querySelector('.city');
-    printCity(city, data);
+    printCity(data, city);
 }
 
-function printOtherCity(data, id) {
-    let city = document.getElementById(id);
-    printCity(city, data);
+function printOtherCity(data, city) {
+    printCity(data, city);
 }
-function printCity(city,data) {
+function printCity(data, city) {
     city.querySelector('.name').innerHTML = data.name;
     city.querySelector('img').src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
     city.querySelector('.temp').innerHTML = `${Math.round(data.main.temp)}°C`;
@@ -21,7 +20,7 @@ function printCity(city,data) {
 function printLoading() {
     let city = document.querySelector('.city');
     city.querySelector('.name').innerHTML = 'Загрузка...';
-    city.querySelector('img').src = 'image/reload.svg';
+    city.querySelector('img').src = 'img/reload.svg';
     city.querySelector('.temp').innerHTML = '';
     city.querySelector('.feels-like').innerHTML = '';
     city.querySelector('.wind').innerHTML = '';

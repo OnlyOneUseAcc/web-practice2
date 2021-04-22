@@ -1,28 +1,31 @@
-let citiesFromStorage = [];
-
 function getPosition() {
     navigator.geolocation.getCurrentPosition(position => setPosition(position),
         positionError => setDefault());
 }
 
-async function citiesFromLocalStorage() {
-    if (localStorage.length !== 0) {
-        citiesFromStorage = localStorage.getItem('favorites').split(',');
-        Promise.all(citiesFromStorage).then(citiesFromStorage => citiesFromStorage.forEach(function (value, index) {
-            loading(index);
-        }));
-
-        citiesFromStorage.forEach(function (value, index) {
-            fetchWeatherByID(value).then(data => printOtherCity(data, index));
-        })
+async function citiesFromStorage() {
+    try {
+        let data = await fetchGetCities();
+        for (let name of data.cities) {
+            let city = loading();
+            try {
+                let data = await fetchCityByName(name);
+                printOtherCity(data, city);
+            } catch (e) {
+                console.log(e);
+                city.remove();
+                return;
+            }
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
-
 
 async function setDefault() {
     let name = "Москва";
 
-    printMainCity(await fetchWeather(name));
+    printMainCity(await fetchCityByName(name));
 }
 
 function updateGeolocation() {

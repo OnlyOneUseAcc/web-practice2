@@ -1,31 +1,25 @@
 async function addCity() {
     let input = document.querySelector('.search').value;
     if (input !== '') {
-        let data = await fetchWeather(input);
-        if (data.cod === '404') {
-            alert('Город не найден');
-        } else {
-            let id = data.id.toString();
-            if (citiesFromStorage.indexOf(id) === -1) {
-                let sectionID = citiesFromStorage.length.toString();
-                loading(sectionID);
-                citiesFromStorage.push(id);
-                await sleep(1000).then(() => { printOtherCity(data, sectionID) });
-                updateStorage();
-            } else {
-                alert('Город уже существует!');
+
+        let city = loading();
+
+        try {
+            let data = await fetchAdd(input);
+            console.log(input);
+            if (data === false) {
+                console.log("Город уже существует")
+                city.remove();
+                return;
             }
+            printOtherCity(data, city);
         }
-        document.querySelector('input').value = '';
+        catch (e) {
+            console.log(e);
+            city.remove();
+            return;
+        }
+
+        document.querySelector('.search').value = '';
     }
-}
-
-function updateStorage() {
-    let key = 'favorites';
-    let value = citiesFromStorage.join();
-    localStorage.setItem(key, value);
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
